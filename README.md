@@ -34,3 +34,4 @@ Install the following before you start:
    ```bash
    git clone git@github.com:tauseefau/n8n.git
    cd n8n
+This report created using help from https://github.com/n8n-io/self-hosted-ai-starter-kit?tab=readme-ov-file . The Master source for this Ithank all the contributors for this git repo
