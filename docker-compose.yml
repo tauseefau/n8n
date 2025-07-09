@@ -4,6 +4,7 @@ volumes:
   db_storage:
   n8n_storage:
   qdrant_storage:
+  ollama_models:
 
 services:
   postgres:
@@ -48,19 +49,6 @@ services:
       postgres:
         condition: service_healthy
 
-  nocodb:
-    image: nocodb/nocodb:latest
-    restart: always
-    environment:
-      - NC_DB=pg://postgres:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    ports:
-      - 8080:8080
-    networks:
-      - n8n-ollama-shared
-    depends_on:
-      postgres:
-        condition: service_healthy
-
   qdrant:
     image: qdrant/qdrant:latest
     restart: always
@@ -71,6 +59,29 @@ services:
     networks:
       - n8n-ollama-shared
 
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    restart: "no"
+    ports:
+      - 11434:11434
+    networks:
+      - n8n-ollama-shared
+    volumes:
+      - ollama_models:/root/.ollama
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - NVIDIA_VISIBLE_DEVICES=all
+      - OLLAMA_HOST=0.0.0.0:11434
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+    labels:
+      desktop.docker.io/wsl-distro: Ubuntu-24.04
+      org.opencontainers.image.ref.name: ubuntu
+      org.opencontainers.image.version: 20.04
+    runtime: runc
+
 networks:
   n8n-ollama-shared:
     external: true
+
