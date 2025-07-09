@@ -48,26 +48,13 @@ services:
       postgres:
         condition: service_healthy
 
-  nocodb:
-    image: nocodb/nocodb:latest
-    restart: always
-    environment:
-      - NC_DB=pg://postgres:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    ports:
-      - 8080:8080
-    networks:
-      - n8n-ollama-shared
-    depends_on:
-      postgres:
-        condition: service_healthy
-
   qdrant:
     image: qdrant/qdrant:latest
     restart: always
-    volumes:
-      - qdrant_storage:/qdrant/storage
     ports:
       - 6333:6333
+    volumes:
+      - qdrant_storage:/qdrant/storage
     networks:
       - n8n-ollama-shared
 
