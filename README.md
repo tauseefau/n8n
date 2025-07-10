@@ -3,8 +3,6 @@
 This setup lets you run a complete local automation environment using:
 
 - 🌐 n8n – workflow automation
-- 🧠 Ollama – local AI models
-- 🧲 Qdrant – vector search
 - 🗃️ PostgreSQL – relational DB
 
 ---
