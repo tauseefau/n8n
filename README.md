@@ -1,4 +1,4 @@
-# 🛠️ Local Workflow Automation with n8n + Ollama + Qdrant + PostgreSQL
+# 🛠️ Local Workflow Automation with n8n PostgreSQL
 
 This setup lets you run a complete local automation environment using:
 
